@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--
+Copyright (c) 2008 Frank Salim
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.    
+-->
+
+<h1>Example Usage of Pickle.js</h1>
+
+<p>
+    Outputs to console. <a href="http://www.getfirebug.com/">http://www.getfirebug.com/</a>
+</p>
+
+
+<script src="pickle.js"></script>
+<script>
+    onload = function() {
+        // Python object pickle 'p' was created from:
+        // ['string', 1, 2, 3, {'key': 'value'}, [4, 5, 6]]
+        p="(lp0\nS'string'\np1\naI1\naI2\naI3\na(dp2\nS'key'\np3\nS'value'\np4\nsa(lp5\nI4\naI5\naI6\naa."
+    
+        // pickle with multiple refs
+        p1 = '(lp0\n(lp1\nI1\naag1\na.'
+    
+        // pickle with recursion
+        p2 = "(dp0\nS'self'\np1\ng0\ns."
+    
+
+        // pickle.loads
+        val = pickle.loads(p)
+        console.log(val)
+        
+        val1 = pickle.loads(p1)
+        console.log(val1)
+        
+        val2 = pickle.loads(p2)
+        console.log(val2)
+        
+        // pickle.dumps
+        l = [1]
+        l.push(l)
+        l.push(l)
+        o = pickle.dumps(l)
+        console.log(o)
+        
+        d = {1:2,3:4}
+        o1 = pickle.dumps(d)
+        console.log(o1)
+        
+        // round-trip
+        o2 = pickle.dumps(pickle.loads(pickle.dumps([true,false,null])))
+        console.log(o2)
+        console.log(pickle.loads(o2))
+    }
+</script>
